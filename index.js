@@ -2,14 +2,20 @@
 const WHITE_CARDS = 558;
 const BLACK_CARDS = 102;
 
+const express = require('express');
+const app = express();
 const http = require('http');
-const server = http.createServer();
+const server = http.createServer(app);
 
 const { Server } = require('socket.io');
 const io = new Server(server);
 
 const players = {};
 const selectedCards = {};
+
+app.get('/', (req, res) => {
+	res.sendFile(`${__dirname}/index.html`);
+});
 
 //my boi their is a method for this in js
 function shuffle(array) {
@@ -80,5 +86,3 @@ io.on('connection', socket => {
 
 server.listen(3000);
 console.log('Server running...');
-
-// comment lol
